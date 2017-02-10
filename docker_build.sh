@@ -7,3 +7,4 @@ cd ..
 
 cd backend
 docker build -t liufuyang/lifeinweeks:latest .
+cd ..

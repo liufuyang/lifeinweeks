@@ -5,12 +5,13 @@ from operator import itemgetter
 from operator import attrgetter
 import logging
 import flask
-from flask_cors import CORS
+# from flask_cors import CORS
 
 logging.basicConfig(
+    filename='./log/lifeinweeks.log',
     format='%(asctime)s : %(levelname)s : %(message)s', level=logging.DEBUG)
 app = flask.Flask(__name__, static_url_path='/static')
-CORS(app)  # for webpack server
+# CORS(app)  # for webpack server
 
 
 @app.route("/")
