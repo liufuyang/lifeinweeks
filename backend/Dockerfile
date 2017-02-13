@@ -13,6 +13,11 @@ COPY config/flask.conf /etc/nginx/sites-available/
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
+# Add SSL certificate
+RUN mkdir /etc/nginx/ssl
+# COPY config/example.com.crt /etc/nginx/ssl/fullchain.pem
+# COPY config/example.com.key /etc/nginx/ssl/privkey.pem
+
 # attach current dir
 ADD . /var/www/app
 RUN mkdir -p /var/www/app/log
