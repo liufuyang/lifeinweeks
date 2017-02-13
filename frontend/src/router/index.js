@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from 'components/Home'
 import Hello from 'components/Hello'
 import Sandbox from 'components/Sandbox'
+import D3 from 'components/D3'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/s',
       name: 'Sandbox',
       component: Sandbox
+    },
+    {
+      path: '/d',
+      name: 'D3',
+      component: D3
     }
   ]
 })

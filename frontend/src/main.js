@@ -3,11 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import VueD3 from 'vue-d3'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 
 Vue.use(VueMaterial)
+Vue.use(VueD3)
 
 Vue.material.registerTheme('default', {
   primary: 'orange',
