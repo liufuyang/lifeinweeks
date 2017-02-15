@@ -22,7 +22,9 @@ container.
 
 ### SSL certificate gen:
 ```
+Tips:
 https://www.linode.com/docs/security/ssl/create-a-self-signed-certificate-on-debian-and-ubuntu
+https://www.linode.com/docs/security/ssl/provide-encrypted-resource-access-using-ssl-certificates-on-nginx
 https://certbot.eff.org/docs/using.html#manual
 
 Cleaning up challenges
