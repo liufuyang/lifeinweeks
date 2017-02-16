@@ -37,11 +37,8 @@ export default {
   // },
   methods: {
     unregister (registration) {
-      // this.$store.commit({
-      //   type: 'unregister',
-      //   userId: registration.userId
-      // })
-      this.$store.commit('unregister', registration)
+      // this.$store.commit('unregister', registration)
+      this.$store.dispatch('unregisterAsync', registration)
     }
   }
 }

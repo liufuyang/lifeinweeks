@@ -31,7 +31,7 @@ export const store = new Vuex.Store({
       return state.currentUserState.login
     }
   },
-  mutations: {
+  mutations: { // no async allowed !!
     register (state, user) {
       const date = new Date()
       user.registered = true
@@ -45,6 +45,16 @@ export const store = new Vuex.Store({
       const user = state.users.find(user => user.id === registration.userId)
       user.registered = false
       state.registrations.splice(state.registrations.indexOf(registration), 1)
+    }
+  },
+  actions: {
+    registerAsync (context, user) {
+      setTimeout(() => {
+        context.commit('register', user)
+      }, 1000)
+    },
+    unregisterAsync ({ commit }, registration) {
+      commit('unregister', registration)
     }
   }
 })
