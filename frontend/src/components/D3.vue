@@ -3,6 +3,15 @@
     <p>
       This is a paragraph
     </p>
+    <form novalidate @submit.stop.prevent="submit">
+    <md-input-container>
+      <label>Try type something here</label>
+      <md-input type="text" :value="msg" v-on:input.native="changeOutsideComponentMessage"/>
+    </md-input-container>
+    <p>
+      {{ message }}
+    </p>
+  </form>
   </div>
 </template>
 
@@ -10,11 +19,17 @@
 <script>
 let D3Sandbox = {
   name: 'd3-sandbox',
+  props: ['msg'], // used for passing values into this component
   data () {
     return {
+      message: ''
     }
   },
   methods: {
+    changeOutsideComponentMessage (event) {
+      this.message = event.target.value
+      this.$emit('messageChanged', this.message)
+    }
   },
   mounted () {
     _init_.call(this)

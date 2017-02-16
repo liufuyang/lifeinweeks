@@ -26,7 +26,7 @@
         <md-button class="md-icon-button md-raised md-accent">
           <md-icon>thumb_up</md-icon>
         </md-button>
-        <md-button class="md-icon-button md-raised md-warn">
+        <md-button class="md-icon-button md-raised md-warn" @click.native="jumpToAbout()">
           <md-icon>send</md-icon>
         </md-button>
       </md-card-content>
@@ -71,10 +71,13 @@
       <button v-on:click="clearTable()">Clear table</button>
       <p>The clear table button above has been clicked {{ counter }} times.</p>
     </div>
+    <app-D3-demo v-bind:msg="msg" v-on:messageChanged="msg = $event"></app-D3-demo>
   </div>
 </template>
 
 <script>
+import D3Demo from './D3'
+
 export default {
   name: 'sandbox',
   data () {
@@ -111,7 +114,13 @@ export default {
       callNTimes(this, function (obj) {
         obj.counter += 1
       }, 20, 1000)
+    },
+    jumpToAbout: function () {
+      this.$router.push('/about')
     }
+  },
+  components: {
+    'app-D3-demo': D3Demo
   }
 }
 
