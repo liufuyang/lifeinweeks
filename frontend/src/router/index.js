@@ -4,6 +4,7 @@ import Home from 'components/Home'
 import Hello from 'components/Hello'
 import Sandbox from 'components/Sandbox'
 import D3 from 'components/D3'
+import DemoVuex from 'components/DemoVue/DemoVuex'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/d',
       name: 'D3',
       component: D3
+    },
+    {
+      path: '/demo-vuex',
+      name: 'DemoVuex',
+      component: DemoVuex
     }
   ]
 })

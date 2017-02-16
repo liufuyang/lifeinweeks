@@ -7,6 +7,8 @@ import VueD3 from 'vue-d3'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
 
+import { store } from './store'
+
 Vue.use(VueMaterial)
 Vue.use(VueD3)
 
@@ -20,6 +22,7 @@ Vue.material.registerTheme('default', {
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })
