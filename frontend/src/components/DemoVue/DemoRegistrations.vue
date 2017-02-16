@@ -14,15 +14,27 @@
 </template>
 
 <script>
+// Sweet part:
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
-    registrations () {
-      return this.$store.state.registrations
-    },
-    total () {
-      return this.$store.state.registrations.length
+    ...mapGetters({ // ES2015 feature. https://www.youtube.com/watch?v=iw1eajzWQAM&index=2&list=PL55RiY5tL51pT0DNJraU93FhMzhXxtDAo
+      registrations: 'registrations',
+      total: 'totalNumberOfRegistrations'
+    }),
+    justAnotherOne () {
+      return true
     }
   },
+  // computed: {
+  //   registrations () {
+  //     return this.$store.getters.registrations
+  //   },
+  //   total () {
+  //     return this.$store.getters.totalNumberOfRegistrations
+  //   }
+  // },
   methods: {
     unregister (registration) {
       const user = this.$store.state.users.find(user => {
