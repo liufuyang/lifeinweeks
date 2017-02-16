@@ -37,11 +37,11 @@ export default {
   // },
   methods: {
     unregister (registration) {
-      const user = this.$store.state.users.find(user => {
-        return user.id === registration.userId
-      })
-      user.registered = false
-      this.$store.state.registrations.splice(this.$store.state.registrations.indexOf(registration), 1)
+      // this.$store.commit({
+      //   type: 'unregister',
+      //   userId: registration.userId
+      // })
+      this.$store.commit('unregister', registration)
     }
   }
 }

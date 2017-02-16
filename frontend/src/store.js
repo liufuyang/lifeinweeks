@@ -30,5 +30,21 @@ export const store = new Vuex.Store({
     isUserLoggedIn (state) {
       return state.currentUserState.login
     }
+  },
+  mutations: {
+    register (state, user) {
+      const date = new Date()
+      user.registered = true
+      const registration = {
+        userId: user.id,
+        name: user.name,
+        date: date.toLocaleDateString()}
+      state.registrations.push(registration)
+    },
+    unregister (state, registration) {
+      const user = state.users.find(user => user.id === registration.userId)
+      user.registered = false
+      state.registrations.splice(state.registrations.indexOf(registration), 1)
+    }
   }
 })

@@ -18,9 +18,10 @@ export default {
   },
   methods: {
     registerUser (user) {
-      const date = new Date()
-      user.registered = true
-      this.$store.state.registrations.push({userId: user.id, name: user.name, date: date.toLocaleDateString()})
+      // const date = new Date()
+      // user.registered = true
+      // this.$store.state.registrations.push({userId: user.id, name: user.name, date: date.toLocaleDateString()})
+      this.$store.commit('register', user)
     }
   }
 }
