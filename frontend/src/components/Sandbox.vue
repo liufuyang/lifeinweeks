@@ -17,7 +17,7 @@
         </md-button>
         <md-button class="md-raised"  @click.native="clearTable()">Clear
         </md-button>
-        <md-button class="md-icon-button md-raised md-primary">
+        <md-button class="md-icon-button md-raised md-primary" @click.native="tryAPICall()">
           <md-icon>message</md-icon>
         </md-button>
         <md-button class="md-icon-button md-raised md-accent">
@@ -117,6 +117,16 @@ export default {
     },
     jumpToAbout: function () {
       this.$router.push('/about')
+    },
+    tryAPICall: function () {
+      // GET /someUrl
+      this.$http.get('/api/get').then(response => {
+        // get body data
+        this.someData = response.body
+        alert(JSON.stringify(this.someData))
+      }, response => {
+        // error callback
+      })
     }
   },
   components: {

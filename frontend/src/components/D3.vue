@@ -47,7 +47,7 @@ function _init_ () {
   canvas.append('circle')
     .attr('cx', 250)
     .attr('cy', 250)
-    .attr('r', 50)
+    .attr('r', 100)
     .attr('fill', 'red')
 
   canvas.append('rect')

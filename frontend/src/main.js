@@ -6,11 +6,13 @@ import router from './router'
 import VueD3 from 'vue-d3'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.css'
+import VueResource from 'vue-resource'
 
 import { store } from './store'
 
 Vue.use(VueMaterial)
 Vue.use(VueD3)
+Vue.use(VueResource)
 
 Vue.material.registerTheme('default', {
   primary: 'orange',
