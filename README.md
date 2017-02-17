@@ -12,6 +12,8 @@ container.
     * `$ npm install` for the first time only
     * `$ npm run dev` to run the frontend code
 * Backend 
+    * Install Python3 before running the following command.
+    * `$ setup-local-python-env.sh`
     * `$ pip install -r backend/requirements`
     * `$ start_backend_local.sh`
 

@@ -1,22 +1,14 @@
 #!/usr/bin/env bash
 
-PYTHON_3_DIR=/Library/Frameworks/Python.framework/Versions/3.5/bin/
-PYTHON_ENV_NAME=python3.5-env
+PYTHON_ENV_NAME=python3-env
 
-echo "Please install python3.5.1 if you haven't done that."
-echo "On Mac OS X the default community version python 3 will be install at $PYTHON_3_DIR"
-
-if [ ! -d "$PYTHON_3_DIR" ]; then
-  # if PYTHON_3_DIR doesn't exist.
-  echo "Could not find python version 3.5 on path $PYTHON_3_DIR. Please install it or specify a different path in the script"
-  exit 1
-fi
+echo "Please install Python 3 if you haven't done that."
 
 pip install virtualenv
 
-virtualenv -p $PYTHON_3_DIR/python3 $PYTHON_ENV_NAME
+virtualenv -p python3 $PYTHON_ENV_NAME
 
-echo "source $(pwd)/python3.5-env/bin/activate" > .env
+echo "source $(pwd)/$PYTHON_ENV_NAME/bin/activate" > .env
 
 source $(pwd)/$PYTHON_ENV_NAME/bin/activate # activate the local python environment
 
