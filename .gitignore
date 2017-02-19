@@ -2,12 +2,13 @@
 .DS_Store
 .idea
 .env
-python3.*-env
+python3*-env
 backend/static
 backend/log
 backend/templates/index.html
 log
 *.bk
+*.swp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
