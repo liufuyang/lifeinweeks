@@ -14,8 +14,6 @@ container.
 * Backend
     * Install Python3 before running the following command.
     * `$ setup-local-python-env.sh`
-    * `$ source YOUR_PYTHON_ENV/bin/activate`
-    * `$ pip install -r backend/requirements`
     * `$ start_backend_local.sh`
 
 ## Appendix:
