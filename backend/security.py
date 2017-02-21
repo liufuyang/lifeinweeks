@@ -1,23 +1,14 @@
 from werkzeug.security import safe_str_cmp
 
-from user import User
-
-users = [
-    User('0', 'asdf')
-]
-
-uid_mapping = {
-    u.id: u for u in users
-}
-
+from models.user import UserModel
 
 def authenticate(uid, password):
-    user = uid_mapping.get(uid, None)
-    if user and safe_str_cmp(user.password.encode('utf-8'),
-                             password.encode('utf-8')):
+    user = UserModel.find_by_uid(uid)
+    if user and safe_str_cmp(user.password, password):
         return user
 
 
 def identity(payload):
     uid = payload['identity']
-    return uid_mapping.get(uid, None)
+    print(payload)
+    return UserModel.find_by_uid(uid)

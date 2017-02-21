@@ -6,12 +6,14 @@ from operator import itemgetter
 from operator import attrgetter
 import logging
 import flask
-from flask_restful import Resource, Api, reqparse
-from flask_jwt import JWT, jwt_required, JWTError
+from flask_restful import Api
+from flask_jwt import JWT
 from flask_cors import CORS
 
 from utils.config.all_configs import Config
 from security import authenticate, identity
+from db import db
+from resources import user_resources
 
 logging.basicConfig(
     filename=Config.LOGGING_FILENAME,
@@ -24,6 +26,16 @@ app.config['PROPAGATE_EXCEPTIONS'] = True
 
 api = Api(app)
 # CORS(app)  # for webpack server
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://{}:{}@{}:{}/{}'.format(
+    Config.DB_USER, Config.DB_PASS, Config.DB_HOST, Config.DB_PORT, Config.DB_NAME)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
+
+@app.before_first_request
+def create_tables():
+    logging.info('create_tables...')
+    db.create_all()
 
 # jwt will create a new endpoint: /auth which connect to the method
 # authenticate
@@ -39,12 +51,6 @@ def gen_clean_week_data():
     return list(itr)
 
 # TODO use db later on
-users = {
-    '0': {
-        'uid': '0',
-        'birthday': datetime.date.today().isoformat()
-    }
-}
 
 user_data = {
     '0': {
@@ -63,25 +69,6 @@ def get():
     return flask.jsonify(gen_clean_week_data())
 
 
-# POST - add user
-@app.route('/api_old/user', methods=['POST'])
-def create_user():
-    request_data = flask.request.get_json()
-    users[request_data['uid']] = request_data
-    return flask.jsonify(request_data)
-
-
-@app.route('/api_old/users')
-@jwt_required()
-def get_users():
-    return flask.jsonify(users)
-
-
-@app.route('/api_old/user/<string:uid>')
-def get_user_info(uid):
-    return flask.jsonify(users[uid])
-
-
 @app.route('/api/user/<string:uid>/week-data', methods=['POST'])
 def add_user_week_data(uid):
     pass
@@ -92,62 +79,8 @@ def get_user_week_data(uid):
     return flask.jsonify(user_data[uid])
 
 
-@app.route('/test')
-def test():
-    logging.info('/test visited')
-    return Config.LOGGING_FILENAME
-
-
-# RESTFUL:
-class User(Resource):
-
-    @jwt_required()
-    def get(self, uid):
-        if uid in users:
-            # no need to use jsonify as flask_restful does that for us
-            return users[uid]
-        else:
-            return {'message': 'User does not exist'}, 404  # not found
-
-    def post(self, uid):
-        if uid in users:
-            # bad request
-            return {'message': 'A user with uid {} already exists'.format(uid)}, 400
-
-        # request_data = flask.request.get_json()
-        request_data = User.parser.parse_args()
-        request_data['uid'] = uid
-        users[uid] = request_data
-        return request_data, 201
-
-    def put(self, uid):
-
-        request_data = User.parser.parse_args()
-
-        if uid not in users:
-            request_data['uid'] = uid
-            users[uid] = request_data
-        else:
-            request_data['uid'] = uid
-            users[uid].update(request_data)
-        return request_data
-
-    parser = reqparse.RequestParser()
-    parser.add_argument('birthday',
-                        type=str,
-                        required=True,
-                        help='This field cannot be left blank'
-                        )
-
-
-class Users(Resource):
-
-    @jwt_required()
-    def get(self):
-        return users
-
-api.add_resource(User, '/api/user/<string:uid>')
-api.add_resource(Users, '/api/users')
+api.add_resource(user_resources.User, '/api/user/<string:uid>')
+api.add_resource(user_resources.Users, '/api/users')
 
 
 if __name__ == "__main__":
