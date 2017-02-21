@@ -2,3 +2,6 @@ flask-cors
 flask-restful
 Flask-JWT
 configparser
+Flask-SQLAlchemy
+configparser
+psycopg2

@@ -4,9 +4,9 @@ MAINTAINER Fuyang Liu "liufu.ty@gmail.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 # Use python3 and pip3, also update uwsgi.ini to use plugins=python3
-RUN apt-get update
+RUN apt-get update --fix-missing
 RUN apt-get install -y python3-pip python3-dev uwsgi-plugin-python3 \
-    libpcre3 libpcre3-dev nginx supervisor
+    libpcre3 libpcre3-dev libpq-dev nginx supervisor
 RUN pip3 install uwsgi -I
 
 COPY config/flask.conf /etc/nginx/sites-available/
