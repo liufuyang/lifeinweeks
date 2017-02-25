@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from 'components/Home'
 import Hello from 'components/Hello'
+import WeekCalendar from 'components/WeekCalendar'
 import Sandbox from 'components/Sandbox'
 import D3 from 'components/D3'
 import DemoVuex from 'components/DemoVue/DemoVuex'
@@ -19,6 +20,11 @@ export default new Router({
       path: '/about',
       name: 'Hello',
       component: Hello
+    },
+    {
+      path: '/week',
+      name: 'WeekCalendar',
+      component: WeekCalendar
     },
     {
       path: '/s',
