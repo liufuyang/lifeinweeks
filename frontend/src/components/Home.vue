@@ -18,6 +18,7 @@
       <md-card-content>
       </md-card-content>
     </md-card>
+  </div>
 </template>
 
 <script>
