@@ -16,11 +16,13 @@
         </div>
       </md-card-header>
       <md-card-content>
+        <week-calendar></week-calendar>
       </md-card-content>
     </md-card>
 </template>
 
 <script>
+import WeekCalender from './WeekCalendar'
 export default {
   name: 'home',
   data () {
@@ -28,13 +30,15 @@ export default {
       msg: 'Welcome to Life in Weeks!',
       time: updateTime(this)
     }
+  },
+  components: {
+    'week-calendar': WeekCalender
   }
 }
 
 function updateTime (obj) {
   let interval = setInterval(() => {
     let val = generateTimeString().next()
-
     if (val.done) {
       clearInterval(interval)
     } else {

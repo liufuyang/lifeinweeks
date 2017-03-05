@@ -43,12 +43,23 @@ jwt = JWT(app, authenticate, identity)
 
 
 def gen_clean_week_data():
-    num_list = [x for x in range(0, 90 * 52)]
+    num_list = [(y, w) for y in range(0, 90) for w in range(0, 52)]
     itr = map(lambda num: {
-        'id': num,
-        'color': 0
+        'year_num': num[0],
+        'week_num': num[1],
+        'color': cal_base_color(num[0], num[1], 30, 12)
     }, num_list)
+
     return list(itr)
+
+def cal_base_color(year, week, age_year, age_week):
+    if year < age_year:
+        return 0
+    elif year == age_year and week < age_week:
+        return 0
+    else:
+        return 1
+
 
 # TODO use db later on
 
