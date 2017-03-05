@@ -19,6 +19,7 @@
         <week-calendar></week-calendar>
       </md-card-content>
     </md-card>
+  </div>
 </template>
 
 <script>

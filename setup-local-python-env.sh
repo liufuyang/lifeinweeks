@@ -9,13 +9,13 @@ fi
 
 PYTHON_ENV_NAME=python3-env
 
-pip install virtualenv
+pip3 install virtualenv
 
 virtualenv -p python3 $PYTHON_ENV_NAME
 
 echo "source $(pwd)/$PYTHON_ENV_NAME/bin/activate" > .env
 source $(pwd)/$PYTHON_ENV_NAME/bin/activate # activate the local python environment
-pip install -r ./backend/requirements.txt
+pip3 install -r ./backend/requirements.txt
 
 echo -e "\n"
 echo "Please run \"$ source $PYTHON_ENV_NAME/bin/activate\" to switch to the python environment."
