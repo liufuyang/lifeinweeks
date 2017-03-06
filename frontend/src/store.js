@@ -15,6 +15,9 @@ export const store = new Vuex.Store({
     currentUserState: {
       login: false,
       birthday: null
+    },
+    user: {
+      birthday: new Date()
     }
   },
   getters: {
@@ -29,6 +32,19 @@ export const store = new Vuex.Store({
     },
     isUserLoggedIn (state) {
       return state.currentUserState.login
+    },
+    // For lifeinweeks
+    userBirthday (state) {
+      return state.user.birthday
+    },
+    userBirthdayYear (state) {
+      return state.user.birthday.getFullYear()
+    },
+    userBirthdayMonth (state) {
+      return state.user.birthday.getMonth()
+    },
+    userBirthdayDate (state) {
+      return state.user.birthday.getDate()
     }
   },
   mutations: { // no async allowed !!
@@ -45,6 +61,16 @@ export const store = new Vuex.Store({
       const user = state.users.find(user => user.id === registration.userId)
       user.registered = false
       state.registrations.splice(state.registrations.indexOf(registration), 1)
+    },
+    // For lifeinweeks
+    updateuserbyear (state, year) {
+      state.user.birthday.setFullYear(year)
+    },
+    updateuserbmonth (state, month) {
+      state.user.birthday.setMonth(month)
+    },
+    updateuserbdate (state, date) {
+      state.user.birthday.setDate(date)
     }
   },
   actions: {
@@ -55,6 +81,16 @@ export const store = new Vuex.Store({
     },
     unregisterAsync ({ commit }, registration) {
       commit('unregister', registration)
+    },
+    // For lifeinweeks
+    updateUserBirthdayYear ({commit}, year) {
+      commit('updateuserbyear', year)
+    },
+    updateUserBirthdayMonth ({commit}, month) {
+      commit('updateuserbmonth', month)
+    },
+    updateUserBirthdayDate ({commit}, date) {
+      commit('updateuserbdate', date)
     }
   }
 })
