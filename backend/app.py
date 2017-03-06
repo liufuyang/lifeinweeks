@@ -58,10 +58,7 @@ def gen_clean_week_data(birthday):
 def cal_base_color(year, week, birthday):
     age_year, age_week =  cal_age_year_week(birthday)
     birth_week = cal_week_number(birthday)
-    
-    print('birth_week: '+ str(birth_week))
-    print('age_week: '+ str(age_week))
-    
+
     if age_year < 0:
         return 1
 
@@ -87,10 +84,7 @@ def cal_age_year_week(birthday):
     
     age_year = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
     age_week = cal_week_number(today)
-    
-    print('age_year: ' + str(age_year))
-    print('age_week: ' + str(age_week))
-    
+
     return (age_year, age_week)
 
 def cal_week_number(input_date):

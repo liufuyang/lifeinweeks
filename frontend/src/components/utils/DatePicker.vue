@@ -6,8 +6,8 @@
         <md-input-container v-bind:class="{ 'md-input-invalid': month_invalid}">
           <label for="month">Month</label>
           <md-select name="month" id="month" v-model="userBirthdayMonth">
-            <md-option v-for="month in month_opt" v-bind:value="month">
-              {{month + 1}}
+            <md-option v-for="month in month_opt_en" v-bind:value="month.value">
+              {{month.name}}
             </md-option>
           </md-select>
         </md-input-container>
@@ -48,6 +48,20 @@ export default {
   data () {
     return {
       month_opt: Array.from(new Array(12), (x, i) => i),
+      month_opt_en: [
+        {value: 0, name: 'January'},
+        {value: 1, name: 'February'},
+        {value: 2, name: 'March'},
+        {value: 3, name: 'April'},
+        {value: 4, name: 'May'},
+        {value: 5, name: 'June'},
+        {value: 6, name: 'July'},
+        {value: 7, name: 'August'},
+        {value: 8, name: 'September'},
+        {value: 9, name: 'October'},
+        {value: 10, name: 'November'},
+        {value: 11, name: 'December'}
+      ],
       date_invalid: false,
       month_invalid: false,
       year_invalid: false

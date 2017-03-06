@@ -1,7 +1,16 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <!-- <img src="./assets/logo.png"> -->
     <router-view></router-view>
+
+    <md-card>
+      <md-card-content>
+        <div class="md-subhead">
+          Frontend powered by Vue.js. @ 2017 lifeinweeks
+        </div>
+      </md-card-content>
+    </md-card>
+
   </div>
 </template>
 
