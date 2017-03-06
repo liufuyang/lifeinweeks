@@ -1,5 +1,6 @@
 <template>
   <div class="week-calendar">
+    <date-picker></date-picker>
     <svg>
     </svg>
   </div>
@@ -7,6 +8,7 @@
 
 
 <script>
+import DatePicker from './utils/DatePicker'
 let WeekCalendar = {
   name: 'week-calendar',
   data () {
@@ -19,6 +21,9 @@ let WeekCalendar = {
   },
   mounted () {
     _init_.call(this)
+  },
+  components: {
+    'date-picker': DatePicker
   }
 }
 
@@ -33,7 +38,7 @@ function _init_ () {
 
 function draw (data) {
   let cellSize = 8
-  let colorPool = ['#ff5722', '#0fffff']
+  let colorPool = ['#35495e', '#41b883']
   // data = [
   //   {year_num: 0, week_num: 0}, {year_num: 0, week_num: 1},
   //   {year_num: 1, week_num: 0}, {year_num: 1, week_num: 1}
