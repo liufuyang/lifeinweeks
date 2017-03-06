@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
       birthday: null
     },
     user: {
-      birthday: new Date()
+      birthday: _initAnonymBirthday()
     }
   },
   getters: {
@@ -64,12 +64,15 @@ export const store = new Vuex.Store({
     },
     // For lifeinweeks
     updateuserbyear (state, year) {
+      state.user.birthday = new Date(state.user.birthday)
       state.user.birthday.setFullYear(year)
     },
     updateuserbmonth (state, month) {
+      state.user.birthday = new Date(state.user.birthday)
       state.user.birthday.setMonth(month)
     },
     updateuserbdate (state, date) {
+      state.user.birthday = new Date(state.user.birthday)
       state.user.birthday.setDate(date)
     }
   },
@@ -94,3 +97,9 @@ export const store = new Vuex.Store({
     }
   }
 })
+
+function _initAnonymBirthday () {
+  let d = new Date()
+  d.setFullYear(d.getFullYear() - 30)
+  return d
+}

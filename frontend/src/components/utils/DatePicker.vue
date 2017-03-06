@@ -3,45 +3,45 @@
 
     <md-layout md-gutter="10" md-align="center">
       <md-layout md-flex-xsmall="100" md-flex-small="33" md-flex-medium="20" md-flex="10" md-flex-offset="1">
-      <md-input-container v-bind:class="{ 'md-input-invalid': month_invalid}">
-        <label for="month">Month</label>
-        <md-select
-          v-model="userBirthdayMonth" >
-          <md-option v-for="month in month_opt" v-bind:value="month">
-            {{month + 1}}
-          </md-option>
-        </md-select>
-      </md-input-container>
+        <md-input-container v-bind:class="{ 'md-input-invalid': month_invalid}">
+          <label for="month">Month</label>
+          <md-select name="month" id="month" v-model="userBirthdayMonth">
+            <md-option v-for="month in month_opt" v-bind:value="month">
+              {{month + 1}}
+            </md-option>
+          </md-select>
+        </md-input-container>
       </md-layout>
 
       <md-layout md-flex-xsmall="100" md-flex-small="33" md-flex-medium="10" md-flex="5" md-flex-offset="5">
-      <md-input-container v-bind:class="{ 'md-input-invalid': errors.has('user-birthday-date') || date_invalid}">
-        <label>Date</label>
-        <md-input
-          v-model="userBirthdayDate" type="number"
-          data-vv-name="user-birthday-date" v-validate="'between:1,31'"
-        >
-        </md-input>
-      </md-input-container>
-      </md-layout>
-
-      <md-layout md-flex-xsmall="100" md-flex-small="33" md-flex-medium="10" md-flex="5" md-flex-offset="5">
-      <md-input-container v-bind:class="{ 'md-input-invalid': errors.has('user-birthday-year') || year_invalid}">
-        <label>Year</label>
-        <md-input
-          v-model="userBirthdayYear" type="number"
-          data-vv-name="user-birthday-year" v-validate="'between:1900,2100'"
+        <md-input-container v-bind:class="{ 'md-input-invalid': errors.has('user-birthday-date') || date_invalid}">
+          <label>Date</label>
+          <md-input
+            v-model="userBirthdayDate" type="number"
+            data-vv-name="user-birthday-date" v-validate="'between:1,31'"
           >
-        </md-input>
-      </md-input-container>
+          </md-input>
+        </md-input-container>
       </md-layout>
+
+      <md-layout md-flex-xsmall="100" md-flex-small="33" md-flex-medium="10" md-flex="5" md-flex-offset="5">
+        <md-input-container v-bind:class="{ 'md-input-invalid': errors.has('user-birthday-year') || year_invalid}">
+          <label>Year</label>
+          <md-input
+            v-model="userBirthdayYear" type="number"
+            data-vv-name="user-birthday-year" v-validate="'between:1900,2100'"
+            >
+          </md-input>
+        </md-input-container>
+      </md-layout>
+
     </md-layout>
   </div>
 </template>
 
 <script>
 import _ from 'lodash'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default {
   name: 'date-picker',
@@ -119,9 +119,10 @@ function validateMonth (y, m, d) {
   if (d === '') return false
   // year between:1900,2100
   if (y < 1900 || y > 2100) return false
+  // if (d < 1 || d > 31) return false
 
-  let r = moment({y: y, M: m, d: d}).isValid()
-  return r
+  // let r = moment({y: y, M: m, d: d}).isValid()
+  return true
 }
 
 </script>

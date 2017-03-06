@@ -16,6 +16,7 @@
         </div>
       </md-card-header>
       <md-card-content>
+        <date-picker></date-picker>
         <week-calendar></week-calendar>
       </md-card-content>
     </md-card>
@@ -24,6 +25,7 @@
 
 <script>
 import WeekCalender from './WeekCalendar'
+import DatePicker from './utils/DatePicker'
 export default {
   name: 'home',
   data () {
@@ -33,7 +35,8 @@ export default {
     }
   },
   components: {
-    'week-calendar': WeekCalender
+    'week-calendar': WeekCalender,
+    'date-picker': DatePicker
   }
 }
 
