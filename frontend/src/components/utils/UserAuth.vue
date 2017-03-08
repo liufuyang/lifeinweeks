@@ -43,6 +43,7 @@ export default {
           const birthday = new Date(profile.birthday)
           if (birthday) {
             this.$store.dispatch('updateUserBirthday', birthday)
+            localStorage.setItem('birthday_updated', 'true')
           }
         }
       })
@@ -62,6 +63,7 @@ export default {
       localStorage.removeItem('id_token')
       localStorage.removeItem('profile')
       localStorage.removeItem('birthday')
+      localStorage.removeItem('birthday_updated')
       this.$store.dispatch('setAuthenticated', false)
     }
     // Make a secure call to the server by attaching

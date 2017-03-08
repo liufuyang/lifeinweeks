@@ -19,7 +19,7 @@ export const store = new Vuex.Store({
     user: {
       authenticated: !!localStorage.getItem('id_token'),
       birthday: _initAnonymBirthday(),
-      birthdayUpdatedViaLogin: false
+      birthdayUpdatedViaLogin: !!localStorage.getItem('birthday_updated')
     }
   },
   getters: {

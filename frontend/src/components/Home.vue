@@ -15,15 +15,12 @@
         </div>
         <date-picker v-show="!authenticatedAndBirthdayUpdated"></date-picker>
 
-        <md-card-content v-show="authenticated">
+        <md-card-content v-if="authenticated">
           <div class="md-subheading">
-            <span>See how many weeks have passed in your life...</span>
+            <span>See how many weeks have passed in your life... Carpe Diem! </span>
           </div>
           <div class="md-subheading">
-            Carpe Diem
-          </div>
-          <div class="md-subheading">
-            {{time}}
+            {{timeSimple}}
           </div>
         </md-card-content>
 
@@ -31,7 +28,7 @@
 
       </md-card-content>
 
-      <div v-show="!authenticated">
+      <div v-if="!authenticated">
         <div class="md-title">
           Carpe Diem
         </div>
@@ -54,7 +51,8 @@ export default {
   data () {
     return {
       msg: 'Welcome to Life in Weeks!',
-      time: updateTime(this)
+      time: updateTime(this),
+      timeSimple: updateTimeSimple(this)
     }
   },
   computed: {
@@ -84,6 +82,18 @@ function updateTime (obj) {
   }, 31)
 }
 
+function updateTimeSimple (obj) {
+  let interval = setInterval(() => {
+    let val = generateTimeStringSimple().next()
+    if (val.done) {
+      clearInterval(interval)
+    } else {
+      obj.timeSimple = val.value
+      return obj.timeSimple
+    }
+  }, 500)
+}
+
 function* generateTimeString () {
   while (true) {
     let time = new Date()
@@ -91,6 +101,13 @@ function* generateTimeString () {
     ms = '000' + ms
     ms = ms.substr(ms.length - 3)
     yield time.toLocaleTimeString() + ' \'' + ms
+  }
+}
+
+function* generateTimeStringSimple () {
+  while (true) {
+    let time = new Date()
+    yield time.toLocaleTimeString()
   }
 }
 </script>
