@@ -33,7 +33,16 @@ let D3Sandbox = {
   },
   mounted () {
     _init_.call(this)
+  },
+  route: {
+    canActivate () {
+      return checkAuth()
+    }
   }
+}
+
+function checkAuth () {
+  return !!localStorage.getItem('id_token')
 }
 
 function _init_ () {

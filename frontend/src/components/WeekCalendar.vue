@@ -55,7 +55,7 @@ let updateWeekView = _.debounce(function (vm, birthday) {
   // TODO this will be updated twice during initiate, which might be a bug
   // https://github.com/marcosmoura/vue-material/issues/590
   // We use debounce here to get over doulbe api calling
-  console.log('updating via calling backend')
+  console.log('updating week view via calling backend')
 
   vm.$http.post('/api/week-data', {birthday: birthday}).then(
     response => {

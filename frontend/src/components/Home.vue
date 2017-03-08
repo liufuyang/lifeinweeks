@@ -5,22 +5,39 @@
         <div class="md-title">
           {{ msg }}
         </div>
-        <div class="md-subhead">
+        <div v-show="false" class="md-subhead">
           by lifeinweeks.ml
         </div>
       </md-card-header>
       <md-card-content>
-        <div class="md-subheading">
-          Enter your birthday here
+        <div v-show="!authenticated" class="md-subheading">
+          <span>Enter your birthday here or login</span>
         </div>
-        <date-picker></date-picker>
+        <date-picker v-show="!authenticatedAndBirthdayUpdated"></date-picker>
+
+        <md-card-content v-show="authenticated">
+          <div class="md-subheading">
+            <span>See how many weeks have passed in your life...</span>
+          </div>
+          <div class="md-subheading">
+            Carpe Diem
+          </div>
+          <div class="md-subheading">
+            {{time}}
+          </div>
+        </md-card-content>
+
         <week-calendar></week-calendar>
+
       </md-card-content>
-      <div class="md-title">
-        Carpe Diem
-      </div>
-      <div class="md-subheading">
-        {{time}}
+
+      <div v-show="!authenticated">
+        <div class="md-title">
+          Carpe Diem
+        </div>
+        <div class="md-subheading">
+          {{time}}
+        </div>
       </div>
     </md-card>
     <br />
@@ -30,6 +47,8 @@
 <script>
 import WeekCalender from './WeekCalendar'
 import DatePicker from './utils/DatePicker'
+import UserAuth from './utils/UserAuth'
+
 export default {
   name: 'home',
   data () {
@@ -38,9 +57,18 @@ export default {
       time: updateTime(this)
     }
   },
+  computed: {
+    authenticated () {
+      return this.$store.getters.isAuthenticated
+    },
+    authenticatedAndBirthdayUpdated () {
+      return this.$store.getters.isAuthenticated && this.$store.getters.isBirthdayUpdatedViaLogin
+    }
+  },
   components: {
     'week-calendar': WeekCalender,
-    'date-picker': DatePicker
+    'date-picker': DatePicker,
+    'user-auth': UserAuth
   }
 }
 

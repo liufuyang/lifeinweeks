@@ -30,3 +30,6 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+import Auth0Lock from 'auth0-lock'
+export var lock = new Auth0Lock('zgoOpRtyeelzaDnHsJuH8d2kpG1n0wK7', 'liufuyang.eu.auth0.com')

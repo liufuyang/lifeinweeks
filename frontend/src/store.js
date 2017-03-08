@@ -17,7 +17,9 @@ export const store = new Vuex.Store({
       birthday: null
     },
     user: {
-      birthday: _initAnonymBirthday()
+      authenticated: !!localStorage.getItem('id_token'),
+      birthday: _initAnonymBirthday(),
+      birthdayUpdatedViaLogin: false
     }
   },
   getters: {
@@ -45,6 +47,13 @@ export const store = new Vuex.Store({
     },
     userBirthdayDate (state) {
       return state.user.birthday.getDate()
+    },
+    // For authentication
+    isAuthenticated (state) {
+      return state.user.authenticated
+    },
+    isBirthdayUpdatedViaLogin (state) {
+      return state.user.birthdayUpdatedViaLogin
     }
   },
   mutations: { // no async allowed !!
@@ -63,6 +72,10 @@ export const store = new Vuex.Store({
       state.registrations.splice(state.registrations.indexOf(registration), 1)
     },
     // For lifeinweeks
+    updateuserbirthday (state, birthday) {
+      state.user.birthday = birthday
+      state.user.birthdayUpdatedViaLogin = true
+    },
     updateuserbyear (state, year) {
       state.user.birthday = new Date(state.user.birthday)
       state.user.birthday.setFullYear(year)
@@ -74,6 +87,10 @@ export const store = new Vuex.Store({
     updateuserbdate (state, date) {
       state.user.birthday = new Date(state.user.birthday)
       state.user.birthday.setDate(date)
+    },
+    // For authentication
+    setauthenticated (state, authenticated) {
+      state.user.authenticated = authenticated
     }
   },
   actions: {
@@ -86,6 +103,9 @@ export const store = new Vuex.Store({
       commit('unregister', registration)
     },
     // For lifeinweeks
+    updateUserBirthday ({commit}, birthday) {
+      commit('updateuserbirthday', birthday)
+    },
     updateUserBirthdayYear ({commit}, year) {
       commit('updateuserbyear', year)
     },
@@ -94,11 +114,19 @@ export const store = new Vuex.Store({
     },
     updateUserBirthdayDate ({commit}, date) {
       commit('updateuserbdate', date)
+    },
+    setAuthenticated ({commit}, authenticated) {
+      commit('setauthenticated', authenticated)
     }
   }
 })
 
 function _initAnonymBirthday () {
+  // Note that localStorage won't refresh with page refresh
+  const birthday = localStorage.getItem('birthday')
+  if (birthday) {
+    return new Date(birthday)
+  }
   let d = new Date()
   d.setFullYear(d.getFullYear() - 30)
   return d
