@@ -1,5 +1,7 @@
 import collections
-import datetime
+from datetime import datetime
+from datetime import date
+import dateutil.parser
 import json
 import math
 from operator import itemgetter
@@ -42,30 +44,60 @@ def create_tables():
 jwt = JWT(app, authenticate, identity)
 
 
-def gen_clean_week_data():
+def gen_clean_week_data(birthday):    
     num_list = [(y, w) for y in range(0, 90) for w in range(0, 52)]
+    
     itr = map(lambda num: {
         'year_num': num[0],
         'week_num': num[1],
-        'color': cal_base_color(num[0], num[1], 30, 12)
+        'color': cal_base_color(num[0], num[1], birthday)
     }, num_list)
 
     return list(itr)
 
-def cal_base_color(year, week, age_year, age_week):
-    if year < age_year:
-        return 0
-    elif year == age_year and week < age_week:
-        return 0
-    else:
+def cal_base_color(year, week, birthday):
+    age_year, age_week =  cal_age_year_week(birthday)
+    birth_week = cal_week_number(birthday)
+
+    if age_year < 0:
         return 1
+
+    # Note: Tricky part, if birth_week is large than age_week
+    # then we need to let the data year starts from one year ahead.
+    if birth_week > age_week:
+        age_year = age_year + 1
+
+    if year == 0:
+        if year == age_year:
+            return 1 if week < birth_week or week >= age_week else 0
+        else:
+            return 1 if week < birth_week else 0
+    elif year < age_year:
+        return 0
+    elif year == age_year:
+        return 0 if week <= age_week else 1
+    elif year > age_year:
+        return 1
+
+def cal_age_year_week(birthday):
+    today = date.today()
+    
+    age_year = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
+    age_week = cal_week_number(today)
+
+    return (age_year, age_week)
+
+def cal_week_number(input_date):
+    # week_num = input_date.isocalendar()[1] - 1 # calculate current week number is not idea
+    week_num = int((date(input_date.year, input_date.month, input_date.day) - date(input_date.year,1,1)).days / 7)
+    week_num = 51 if week_num >= 52 else week_num
+    return week_num
 
 
 # TODO use db later on
-
 user_data = {
     '0': {
-        'data': gen_clean_week_data()
+        'data': gen_clean_week_data(date.today())
     }
 }
 
@@ -77,7 +109,17 @@ def index():
 
 @app.route('/api/get')
 def get():
-    return flask.jsonify(gen_clean_week_data())
+    return flask.jsonify(gen_clean_week_data(date.today()))
+
+
+@app.route('/api/week-data', methods=['POST'])
+def post_week_data():
+    data = flask.request.get_json()
+    # birthday = datetime.strptime(data['birthday'])
+    birthday = dateutil.parser.parse(data['birthday'])
+    print(type(birthday))
+    print(birthday)
+    return flask.jsonify(gen_clean_week_data(birthday))
 
 
 @app.route('/api/user/<string:uid>/week-data', methods=['POST'])

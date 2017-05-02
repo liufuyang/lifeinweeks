@@ -8,22 +8,28 @@
         <div class="md-subhead">
           by lifeinweeks.ml
         </div>
-        <div class="md-title">
-          Under Construction
-        </div>
-        <div class="md-subheading">
-          {{time}}
-        </div>
       </md-card-header>
       <md-card-content>
+        <div class="md-subheading">
+          Enter your birthday here
+        </div>
+        <date-picker></date-picker>
         <week-calendar></week-calendar>
       </md-card-content>
+      <div class="md-title">
+        Carpe Diem
+      </div>
+      <div class="md-subheading">
+        {{time}}
+      </div>
     </md-card>
+    <br />
   </div>
 </template>
 
 <script>
 import WeekCalender from './WeekCalendar'
+import DatePicker from './utils/DatePicker'
 export default {
   name: 'home',
   data () {
@@ -33,7 +39,8 @@ export default {
     }
   },
   components: {
-    'week-calendar': WeekCalender
+    'week-calendar': WeekCalender,
+    'date-picker': DatePicker
   }
 }
 
