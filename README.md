@@ -45,3 +45,19 @@ And in the docker the key needs to be located at:
 ssl_certificate      /etc/nginx/ssl/fullchain.pem;
 ssl_certificate_key  /etc/nginx/ssl/privkey.pem;
 ```
+
+Basically: 
+1. Stop lifeinweek container so port 80 is free
+2. Run certbot-auto command and follow the output:
+    ```
+    ~/certbot$ sudo ./certbot-auto certonly --manual
+    ```
+3. Copy the keys:
+    ```
+    ~/lifeinweeks/ssl$ sudo cp /etc/letsencrypt/live/lifeinweeks.ml-0001/fullchain.pem ./
+    ~/lifeinweeks/ssl$ cp /etc/letsencrypt/live/lifeinweeks.ml-0001/privkey.pem ./
+    ~/lifeinweeks/ssl$ chown sunfish:sunfish fullchain.pem
+    ~/lifeinweeks/ssl$ chown root:sunfish privkey.pem
+    ~/lifeinweeks/ssl$ chmod 400 privkey.pem fullchain.pem
+    ```
+4. Restart lifeinweeks container
